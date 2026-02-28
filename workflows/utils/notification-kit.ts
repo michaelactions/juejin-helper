@@ -34,9 +34,10 @@ export class NotificationKit {
     }
 
     const transporter = nodemailer.createTransport({
-      host: env.EMAIL_HOST || "smtp." + (auth.user as any).match(/@(.*)/)[1],
+      // 使用 process.env 直接读取环境变量，绕过类型定义限制
+      host: process.env.EMAIL_HOST || "smtp." + (auth.user as any).match(/@(.*)/)[1],
       secure: true,
-      port: Number(env.EMAIL_PORT) || 465,
+      port: Number(process.env.EMAIL_PORT) || 465,
       auth,
       tls: {
         // do not fail on invalid certs
