@@ -1,48 +1,43 @@
-const env = process.env || {};
+interface EnvConfig {
+  COOKIE?: string;
+  COOKIE_2?: string;
+  COOKIE_3?: string;
+  COOKIE_4?: string;
+  COOKIE_5?: string;
 
-module.exports = {
-  /* 掘金Cookie */
-  COOKIE: env.COOKIE,
-  /* 多用户掘金Cookie, 当有1名以上用户时填写, 支持同时最多可配置5名用户 */
-  COOKIE_2: env.COOKIE_2,
-  COOKIE_3: env.COOKIE_3,
-  COOKIE_4: env.COOKIE_4,
-  COOKIE_5: env.COOKIE_5,
-  /**
-   * 邮箱配置
-   * user 发件人邮箱, pass, 发件人密码, to收件人
-   */
-  EMAIL_USER: env.EMAIL_USER,
-  EMAIL_PASS: env.EMAIL_PASS,
-  EMAIL_TO: env.EMAIL_TO,
-  EMAIL_HOST: env.EMAIL_HOST,
-  EMAIL_PORT: env.EMAIL_PORT,
-  /**
-   * 钉钉配置
-   * https://open.dingtalk.com/document/robots/custom-robot-access
-   */
-  DINGDING_WEBHOOK: env.DINGDING_WEBHOOK,
-  /**
-   * PushPlus配置
-   * http://www.pushplus.plus/doc/guide/openApi.html
-   */
-  PUSHPLUS_TOKEN: env.PUSHPLUS_TOKEN,
-  /**
-   * 企业微信机器人配置
-   * https://developer.work.weixin.qq.com/document/path/91770
-   */
-  WEIXIN_WEBHOOK: env.WEIXIN_WEBHOOK,
-  /**
-   * server酱推送key
-   * https://sct.ftqq.com/sendkey
-   */
-  SERVERPUSHKEY: env.SERVERPUSHKEY,
-  /**
-   * 飞书配置
-   */
-  FEISHU_WEBHOOK: env.FEISHU_WEBHOOK,
-  /**
-   * Bark配置
-   */
-  BARK_WEBHOOK: env.BARK_WEBHOOK
+  EMAIL_USER?: string;
+  EMAIL_PASS?: string;
+  EMAIL_TO?: string;
+  EMAIL_HOST?: string;
+  EMAIL_PORT?: string;
+
+  DINGDING_WEBHOOK?: string;
+  PUSHPLUS_TOKEN?: string;
+  WEIXIN_WEBHOOK?: string;
+  SERVERPUSHKEY?: string;
+  FEISHU_WEBHOOK?: string;
+  BARK_WEBHOOK?: string;
+}
+
+const config: EnvConfig = {
+  COOKIE: process.env.COOKIE,
+  COOKIE_2: process.env.COOKIE_2,
+  COOKIE_3: process.env.COOKIE_3,
+  COOKIE_4: process.env.COOKIE_4,
+  COOKIE_5: process.env.COOKIE_5,
+
+  EMAIL_USER: process.env.EMAIL_USER,
+  EMAIL_PASS: process.env.EMAIL_PASS,
+  EMAIL_TO: process.env.EMAIL_TO,
+  EMAIL_HOST: process.env.EMAIL_HOST,
+  EMAIL_PORT: process.env.EMAIL_PORT,
+
+  DINGDING_WEBHOOK: process.env.DINGDING_WEBHOOK,
+  PUSHPLUS_TOKEN: process.env.PUSHPLUS_TOKEN,
+  WEIXIN_WEBHOOK: process.env.WEIXIN_WEBHOOK,
+  SERVERPUSHKEY: process.env.SERVERPUSHKEY,
+  FEISHU_WEBHOOK: process.env.FEISHU_WEBHOOK,
+  BARK_WEBHOOK: process.env.BARK_WEBHOOK
 };
+
+export default config;
