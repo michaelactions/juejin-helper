@@ -19,7 +19,7 @@ interface FeiShuOptions extends NotificationOptions {}
 interface BarkOptions extends NotificationOptions {}
 
 export class NotificationKit {
-  /**
+  /**.
    * 邮件推送
    * @param options
    */
@@ -34,9 +34,9 @@ export class NotificationKit {
     }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp." + (auth.user as any).match(/@(.*)/)[1],
+      host: env.EMAIL_HOST || "smtp." + (auth.user as any).match(/@(.*)/)[1],
       secure: true,
-      port: 465,
+      port: Number(env.EMAIL_PORT) || 465,
       auth,
       tls: {
         // do not fail on invalid certs
