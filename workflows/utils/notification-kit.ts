@@ -34,13 +34,14 @@ export class NotificationKit {
     }
 
     const transporter = nodemailer.createTransport({
-      // 使用 process.env 直接读取环境变量，绕过类型定义限制
-      host: process.env.EMAIL_HOST || "smtp." + (auth.user as any).match(/@(.*)/)[1],
+      // 优先使用 env.ts 中新定义的变量，如果没有则回退到原有的自动拼接逻辑
+      host: env.EMAIL_HOST || "smtp." + (auth.user as any).match(/@(.*)/)[1],
       secure: true,
-      port: Number(process.env.EMAIL_PORT) || 465,
+      // 将端口字符串转为数字，若未配置则默认为 465
+      port: Number(env.EMAIL_PORT) || 465,
       auth,
       tls: {
-        // do not fail on invalid certs
+        // 忽略无效证书错误，提高第三方 SMTP 的兼容性
         rejectUnauthorized: false
       }
     });
