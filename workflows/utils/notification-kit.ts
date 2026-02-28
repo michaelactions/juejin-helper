@@ -34,16 +34,16 @@ export class NotificationKit {
     }
 
     const transporter = nodemailer.createTransport({
-      // 关键：将 env 强制断言为 any 类型，告诉 TS “别检查了，我知道它有这个属性”
-      host: (env as any).EMAIL_HOST || "smtp." + (auth.user as any).match(/@(.*)/)[1],
+      // 使用字符串索引 ['变量名'] 彻底避开 TypeScript 的属性存在性检查
+      host: env['EMAIL_HOST'] || "smtp." + (auth.user as any).match(/@(.*)/)[1],
       secure: true,
-      port: Number((env as any).EMAIL_PORT) || 465,
+      port: Number(env['EMAIL_PORT']) || 465,
       auth,
       tls: {
-        // 增加兼容性：不检查证书，防止部分第三方 SMTP 握手失败
+        // 允许无效证书，提高第三方 SMTP 兼容性
         rejectUnauthorized: false
       }
-    });
+    } as any);
 
     const template = `
 <style>
