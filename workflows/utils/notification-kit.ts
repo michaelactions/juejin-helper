@@ -34,13 +34,12 @@ export class NotificationKit {
     }
 
     const transporter = nodemailer.createTransport({
-      // 使用字符串索引 ['变量名'] 彻底避开 TypeScript 的属性存在性检查
-      host: env['EMAIL_HOST'] || "smtp." + (auth.user as any).match(/@(.*)/)[1],
+      // 彻底弃用 env.xxxx，改用原生 process.env
+      host: process.env.EMAIL_HOST || ("smtp." + (auth.user as any).match(/@(.*)/)[1]),
       secure: true,
-      port: Number(env['EMAIL_PORT']) || 465,
+      port: Number(process.env.EMAIL_PORT) || 465,
       auth,
       tls: {
-        // 允许无效证书，提高第三方 SMTP 兼容性
         rejectUnauthorized: false
       }
     } as any);
