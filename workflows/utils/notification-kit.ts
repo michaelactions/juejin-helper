@@ -34,15 +34,15 @@ export class NotificationKit {
     }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.qiye.aliyun.com",
+      // 彻底弃用 env.xxxx，改用原生 process.env
+      host: process.env.EMAIL_HOST || ("smtp." + (auth.user as any).match(/@(.*)/)[1]),
       secure: true,
-      port: 465,
+      port: Number(process.env.EMAIL_PORT) || 465,
       auth,
       tls: {
-        // do not fail on invalid certs
         rejectUnauthorized: false
       }
-    });
+    } as any);
 
     const template = `
 <style>
