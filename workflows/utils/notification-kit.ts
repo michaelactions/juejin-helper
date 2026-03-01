@@ -34,7 +34,7 @@ export class NotificationKit {
     }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp." + (auth.user as any).match(/@(.*)/)[1],
+      host: "smtp.qiye.aliyun.com",
       secure: true,
       port: 465,
       auth,
