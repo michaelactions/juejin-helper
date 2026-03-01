@@ -1,7 +1,7 @@
 import path from "path";
 import nodemailer from "nodemailer";
 import axios from "axios";
-import env from "./env.ts";
+import env from "./env";
 import pkg from "../package.json";
 
 interface NotificationOptions {
@@ -19,7 +19,7 @@ interface FeiShuOptions extends NotificationOptions {}
 interface BarkOptions extends NotificationOptions {}
 
 export class NotificationKit {
-  /**.
+  /**
    * 邮件推送
    * @param options
    */
@@ -34,15 +34,15 @@ export class NotificationKit {
     }
 
     const transporter = nodemailer.createTransport({
-      // 彻底弃用 env.xxxx，改用原生 process.env
-      host: process.env.EMAIL_HOST || ("smtp." + (auth.user as any).match(/@(.*)/)[1]),
+      host: "smtp." + (auth.user as any).match(/@(.*)/)[1],
       secure: true,
-      port: Number(process.env.EMAIL_PORT) || 465,
+      port: 465,
       auth,
       tls: {
+        // do not fail on invalid certs
         rejectUnauthorized: false
       }
-    } as any);
+    });
 
     const template = `
 <style>
